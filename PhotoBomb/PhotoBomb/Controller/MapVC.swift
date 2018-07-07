@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapVC: UIViewController {
+class MapVC: UIViewController,UIGestureRecognizerDelegate {
     
     //Variables
     var locationManager = CLLocationManager()
@@ -27,9 +27,18 @@ class MapVC: UIViewController {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
        self.mapView.showsUserLocation = true
         configureLocationService()
-       
+       addDoubleTap()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    func addDoubleTap(){
+        let doubleTap  = UITapGestureRecognizer(target: self, action: #selector(MapVC.dropPin(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        doubleTap.delegate = self
+        mapView.addGestureRecognizer(doubleTap)
+        
+    }
+    
 
     @IBAction func centerMapBtnPressed(_ sender: Any) {
         if(authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse){
@@ -46,6 +55,27 @@ extension MapVC: MKMapViewDelegate{
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius*2, regionRadius*2)
         mapView.setRegion(coordinateRegion, animated: true)
         
+    }
+    
+    @objc func dropPin(_ recog: UITapGestureRecognizer){
+        removePin()
+        
+        let touchPoint = recog.location(in: mapView)
+        let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        
+        let annotation: DroppablePin = DroppablePin(coordinate: touchCoordinate, identifier: "droppablePin")
+        mapView.addAnnotation(annotation)
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, regionRadius*2, regionRadius*2)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+        
+    }
+    
+    func removePin(){
+        for annotations in mapView.annotations{
+            mapView.removeAnnotation(annotations)
+        }
     }
     
 }
