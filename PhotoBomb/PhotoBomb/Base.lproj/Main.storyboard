@@ -61,7 +61,7 @@
                         <constraints>
                             <constraint firstItem="dtS-sT-6qa" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0UX-K4-hSv"/>
                             <constraint firstItem="wvt-TS-6S7" firstAttribute="top" secondItem="dtS-sT-6qa" secondAttribute="bottom" id="82r-Qi-jK0"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PRe-Lp-0t6" secondAttribute="bottom" constant="20" id="8zh-JM-rsx"/>
+                            <constraint firstItem="wvt-TS-6S7" firstAttribute="top" secondItem="PRe-Lp-0t6" secondAttribute="bottom" constant="20" id="8zh-JM-rsx"/>
                             <constraint firstItem="DNG-L3-mlW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="C7P-dW-3lQ"/>
                             <constraint firstItem="DNG-L3-mlW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="GjT-Tc-wI9"/>
                             <constraint firstItem="DNG-L3-mlW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="JOc-0g-Gec"/>
@@ -76,6 +76,8 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="dtS-sT-6qa" id="dqN-cT-gRQ"/>
+                        <outlet property="pullUpView" destination="wvt-TS-6S7" id="cYg-vj-fOW"/>
+                        <outlet property="pullUpViewHeightConstraint" destination="Zxc-q2-M5j" id="fug-9m-AQV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
