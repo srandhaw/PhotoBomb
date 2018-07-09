@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C73DDF6620F310AC00639946 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73DDF6520F310AC00639946 /* PhotoCell.swift */; };
 		C775718020F114940088441F /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C775717F20F114940088441F /* DroppablePin.swift */; };
 		C78FFEDD20DBDA6E00C81EAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78FFEDC20DBDA6E00C81EAA /* AppDelegate.swift */; };
 		C78FFEDF20DBDA6E00C81EAA /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78FFEDE20DBDA6E00C81EAA /* MapVC.swift */; };
@@ -21,6 +22,7 @@
 		2313617655DE844A6BC3E539 /* Pods-PhotoBomb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBomb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBomb/Pods-PhotoBomb.debug.xcconfig"; sourceTree = "<group>"; };
 		5DBDC0CB6335E406179B8C61 /* Pods-PhotoBomb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBomb.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBomb/Pods-PhotoBomb.release.xcconfig"; sourceTree = "<group>"; };
 		A00DE2CDB3C635E6D4E77AF1 /* Pods_PhotoBomb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoBomb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C73DDF6520F310AC00639946 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		C775717F20F114940088441F /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 		C78FFED920DBDA6E00C81EAA /* PhotoBomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C78FFEDC20DBDA6E00C81EAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				C7A6135A20DBE04F005CF2FB /* GradientView.swift */,
 				C775717F20F114940088441F /* DroppablePin.swift */,
+				C73DDF6520F310AC00639946 /* PhotoCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C78FFEDF20DBDA6E00C81EAA /* MapVC.swift in Sources */,
+				C73DDF6620F310AC00639946 /* PhotoCell.swift in Sources */,
 				C775718020F114940088441F /* DroppablePin.swift in Sources */,
 				C78FFEDD20DBDA6E00C81EAA /* AppDelegate.swift in Sources */,
 				C7A6135B20DBE04F005CF2FB /* GradientView.swift in Sources */,

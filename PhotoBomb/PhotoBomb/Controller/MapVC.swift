@@ -10,14 +10,17 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapVC: UIViewController,UIGestureRecognizerDelegate {
+class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
+   
     //Variables
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
     let regionRadius: Double = 1000
     var spinner: UIActivityIndicatorView?
     var propgressLabel: UILabel?
+    var collectionView: UICollectionView?
+    var flowLayout = UICollectionViewFlowLayout()
 
     //Outlets
     @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
@@ -33,7 +36,15 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate {
         configureLocationService()
        addDoubleTap()
         
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: flowLayout)
+        collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        collectionView?.delegate = self
+        collectionView?.dataSource  = self
+        collectionView?.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+        pullUpView.addSubview(collectionView!)
+        
+        
     }
     
     func addDoubleTap(){
@@ -63,7 +74,7 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate {
         spinner?.activityIndicatorViewStyle = .whiteLarge
         spinner?.color = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         spinner?.startAnimating()
-        pullUpView.addSubview(spinner!)
+        collectionView?.addSubview(spinner!)
         
     }
     
@@ -88,7 +99,7 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate {
         propgressLabel?.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         propgressLabel?.textAlignment = .center
         propgressLabel?.text = "0/40 PHOTOS LOADED"
-        pullUpView.addSubview(propgressLabel!)
+        collectionView?.addSubview(propgressLabel!)
     }
     
     func removeProgressLabel(){
@@ -105,6 +116,20 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     
+    //CollectionView functions
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath)  as? PhotoCell
+        return cell!
+    }
+   
 }
 
 extension MapVC: MKMapViewDelegate{
