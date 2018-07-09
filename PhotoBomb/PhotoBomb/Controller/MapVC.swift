@@ -67,6 +67,12 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate {
         
     }
     
+    func removeSpinner(){
+        if(spinner != nil){
+            spinner?.removeFromSuperview()
+        }
+    }
+    
     func animateViewUp(){
         pullUpViewHeightConstraint.constant = 300
         UIView.animate(withDuration: 0.3) {
@@ -75,7 +81,21 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate {
        
     }
     
+    func addProgressLabel(){
+        propgressLabel = UILabel()
+        propgressLabel?.frame = CGRect(x: (UIScreen.main.bounds.width/2) - ((200)/2), y: 175, width: 200, height: 40)
+        propgressLabel?.font = UIFont(name: "Avenir Next", size: 18)
+        propgressLabel?.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        propgressLabel?.textAlignment = .center
+        propgressLabel?.text = "0/40 PHOTOS LOADED"
+        pullUpView.addSubview(propgressLabel!)
+    }
     
+    func removeProgressLabel(){
+        if propgressLabel != nil {
+            propgressLabel?.removeFromSuperview()
+        }
+    }
     
     
 
@@ -98,10 +118,13 @@ extension MapVC: MKMapViewDelegate{
     
     @objc func dropPin(_ recog: UITapGestureRecognizer){
         removePin()
+        removeSpinner()
+        removeProgressLabel()
         
         animateViewUp()
         addSwipe()
         addSpinner()
+        addProgressLabel()
         
         let touchPoint = recog.location(in: mapView)
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
