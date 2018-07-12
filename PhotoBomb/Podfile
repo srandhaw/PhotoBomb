@@ -10,5 +10,6 @@ target 'PhotoBomb' do
   # Pods for PhotoBomb
   pod 'Alamofire', '~> 4.7'
   pod 'AlamofireImage', '~> 3.3'
+  pod 'SwiftyJSON'
 
 end

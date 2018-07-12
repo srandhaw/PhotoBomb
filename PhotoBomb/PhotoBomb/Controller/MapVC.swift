@@ -156,9 +156,17 @@ extension MapVC: MKMapViewDelegate{
         
         let annotation: DroppablePin = DroppablePin(coordinate: touchCoordinate, identifier: "droppablePin")
         mapView.addAnnotation(annotation)
+     
         
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, regionRadius*2, regionRadius*2)
         mapView.setRegion(coordinateRegion, animated: true)
+        
+        
+        DataService.instance.downloadURL(annotation: annotation) { (success) in
+            if(success){
+                print(DataService.instance.urlArray)
+            }
+        }
         
         
     }
