@@ -66,6 +66,7 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
+        DataService.instance.cancelSession()
     }
     
     func addSpinner(){
@@ -100,6 +101,10 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
         propgressLabel?.textAlignment = .center
         propgressLabel?.text = "0/40 PHOTOS LOADED"
         collectionView?.addSubview(propgressLabel!)
+    }
+    
+    func setProgessLabel(number: Int){
+        propgressLabel?.text = "\(number)/40 PHOTOS LOADED"
     }
     
     func removeProgressLabel(){
@@ -145,6 +150,7 @@ extension MapVC: MKMapViewDelegate{
         removePin()
         removeSpinner()
         removeProgressLabel()
+        DataService.instance.cancelSession()
         
         animateViewUp()
         addSwipe()
@@ -164,7 +170,12 @@ extension MapVC: MKMapViewDelegate{
         
         DataService.instance.downloadURL(annotation: annotation) { (success) in
             if(success){
-                print(DataService.instance.urlArray)
+                DataService.instance.retrieveImages(completion: { (success) in
+                    if(success){
+                        self.removeSpinner()
+                        self.removeProgressLabel()
+                    }
+                })
             }
         }
         

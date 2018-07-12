@@ -16,8 +16,9 @@ import SwiftyJSON
 class DataService{
      static let instance = DataService()
     
-    
+    let x = MapVC()
     var urlArray: [String] = [String]()
+    var imageArray: [UIImage] = [UIImage]()
     
     
     func downloadURL(annotation: DroppablePin,completion: @escaping CompletionHandler){
@@ -54,6 +55,42 @@ class DataService{
             }
             else{
                 completion(false)
+            }
+        }
+    }
+    
+    func retrieveImages(completion: @escaping CompletionHandler){
+        imageArray = []
+       
+        
+        
+        for url in urlArray{
+            Alamofire.request(url).responseImage { (response) in
+                guard let image = response.result.value else {return}
+                self.imageArray.append(image)
+                self.x.setProgessLabel(number: self.imageArray.count)
+                
+                if(self.urlArray.count == self.imageArray.count){
+                    completion(true)
+                }
+                
+            }
+        }
+        
+        
+       
+        
+    }
+    
+    func cancelSession(){
+        Alamofire.SessionManager.default.session.getTasksWithCompletionHandler { (sessionDataTask, uploadTask, downloadTask) in
+            
+            for task in sessionDataTask{
+                task.cancel()
+            }
+            
+            for task in downloadTask{
+                task.cancel()
             }
         }
     }
