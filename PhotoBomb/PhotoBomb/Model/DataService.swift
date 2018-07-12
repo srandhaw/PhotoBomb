@@ -23,7 +23,7 @@ class DataService{
     
     func downloadURL(annotation: DroppablePin,completion: @escaping CompletionHandler){
         
-        urlArray = []
+       
         
         Alamofire.request(flickURL(annotation: annotation, apikey: API_KEY, numOfPhotos: 40)).responseJSON { (response) in
             
@@ -60,7 +60,7 @@ class DataService{
     }
     
     func retrieveImages(completion: @escaping CompletionHandler){
-        imageArray = []
+       
        
         
         

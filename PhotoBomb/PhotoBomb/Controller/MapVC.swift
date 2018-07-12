@@ -41,7 +41,7 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
         collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")
         collectionView?.delegate = self
         collectionView?.dataSource  = self
-        collectionView?.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+        collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         pullUpView.addSubview(collectionView!)
         
         
@@ -127,12 +127,14 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return DataService.instance.imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath)  as? PhotoCell
-        return cell!
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath)  as? PhotoCell else{ return UICollectionViewCell()}
+        let imageView = UIImageView(image: DataService.instance.imageArray[indexPath.row])
+        cell.addSubview(imageView)
+        return cell
     }
    
 }
@@ -151,6 +153,9 @@ extension MapVC: MKMapViewDelegate{
         removeSpinner()
         removeProgressLabel()
         DataService.instance.cancelSession()
+        DataService.instance.imageArray = []
+        DataService.instance.urlArray = []
+        collectionView?.reloadData()
         
         animateViewUp()
         addSwipe()
@@ -174,6 +179,7 @@ extension MapVC: MKMapViewDelegate{
                     if(success){
                         self.removeSpinner()
                         self.removeProgressLabel()
+                        self.collectionView?.reloadData()
                     }
                 })
             }
