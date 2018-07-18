@@ -136,6 +136,14 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
         cell.addSubview(imageView)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else {return}
+        
+        popVC.setData(image: DataService.instance.imageArray[indexPath.row])
+        
+        present(popVC, animated: true, completion: nil)
+    }
    
 }
 
@@ -152,6 +160,7 @@ extension MapVC: MKMapViewDelegate{
         removePin()
         removeSpinner()
         removeProgressLabel()
+        
         DataService.instance.cancelSession()
         DataService.instance.imageArray = []
         DataService.instance.urlArray = []
