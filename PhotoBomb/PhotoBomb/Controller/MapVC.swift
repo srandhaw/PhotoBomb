@@ -10,8 +10,10 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource,UIViewControllerPreviewingDelegate {
     
+    
+   
    
     //Variables
     var locationManager = CLLocationManager()
@@ -43,6 +45,7 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
         collectionView?.dataSource  = self
         collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         pullUpView.addSubview(collectionView!)
+        registerForPreviewing(with: self, sourceView: collectionView!)
         
         
     }
@@ -120,6 +123,25 @@ class MapVC: UIViewController,UIGestureRecognizerDelegate, UICollectionViewDeleg
             centerMapOnUserLocation()
         }
     }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionView?.indexPathForItem(at: location), let cell = collectionView?.cellForItem(at: indexPath) else {return nil}
+        
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else {return nil}
+        
+        popVC.setData(image: DataService.instance.imageArray[indexPath.row])
+        
+        previewingContext.sourceRect = cell.contentView.frame
+        
+        return popVC
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+    }
+    
+    
     
     //CollectionView functions
     
